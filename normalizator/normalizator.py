@@ -24,7 +24,7 @@ class StandardScaler():
 		self.X_ = X_
 		return self.X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
@@ -53,7 +53,7 @@ class MinMaxScaler():
 		self.X_ = X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
@@ -103,7 +103,7 @@ class MedianScaler():
 		self.X_ = X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
@@ -129,7 +129,7 @@ class MMADScaler():
 		self.X_ = X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
@@ -157,7 +157,7 @@ class MAXScaler():
 		self.X_ = X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
@@ -186,10 +186,7 @@ class modtanhScaler():
 		self.X_ = X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
-
-
-
