@@ -19,14 +19,14 @@ class ColumnExtractor(BaseEstimator, TransformerMixin):
 
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
     # Applies the '1 to N-1' binarizer of categorical encoding.
-    def __init__(self):
-        pass	
+    def __init__(self, columns=None):
+        self.columns = columns
 
     def fit(self, X):
         return self
     
     def transform(self, X):
-        return pd.get_dummies(X, drop_first=True)
+        return pd.get_dummies(X, columns=self.columns, drop_first=True)
 
     def fit_transform(self, X, y='deprecated'):
-        return pd.get_dummies(X, drop_first=True)
+        return pd.get_dummies(X, columns=self.columns, drop_first=True)
