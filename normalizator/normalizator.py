@@ -1,7 +1,8 @@
 import numpy as np
 import copy
+from sklearn.base import BaseEstimator, TransformerMixin
 
-class StandardScaler():
+class StandardScaler(BaseEstimator, TransformerMixin):
 	# Z-SCORE NORMALIZATION
 	# For each feature vector, apply:
 	# v = [v - mean(v)] / std(v)
@@ -31,7 +32,7 @@ class StandardScaler():
 
 
 
-class MinMaxScaler():
+class MinMaxScaler(BaseEstimator, TransformerMixin):
 	# MIN MAX NORMALIZATION
 	# For each feature vector, apply:
 	# v = [v - min(v)] / [max(v) - min(v)]
@@ -59,7 +60,7 @@ class MinMaxScaler():
 		return self.X_
 
 
-class DecimalScaler():
+class DecimalScaler(BaseEstimator, TransformerMixin):
 	# DECIMAL SCALING
 	# Normalize each feature by dividing each feature sk by 10^n,
 	# where n = log10(max(si))
@@ -84,7 +85,7 @@ class DecimalScaler():
 		return self.X_
 
 
-class MedianScaler():
+class MedianScaler(BaseEstimator, TransformerMixin):
 	# As presented in the paper:
 	# Statistical Normalization and Backpropagation for Classification
 	# Jayalakshmi, T. and Santhakumaran, A.
@@ -109,7 +110,7 @@ class MedianScaler():
 		return self.X_
 
 
-class MMADScaler():
+class MMADScaler(BaseEstimator, TransformerMixin):
 	# Median and Median Absolute Deviation
 	# MAD = median(|sk - median|)
 	def __init__(self):
@@ -137,7 +138,7 @@ class MMADScaler():
 
 
     
-class MAXScaler():
+class MAXScaler(BaseEstimator, TransformerMixin):
 	# As presented in the paper:
     # Efficient approach to Normalization of Multimodal Biometric Scores (2011)
     # of L. Latha and S. Thangasamy
@@ -163,7 +164,7 @@ class MAXScaler():
 		return self.X_
     
 
-class modtanhScaler():
+class modtanhScaler(BaseEstimator, TransformerMixin):
 	# As presented in the paper:
 	# Efficient approach to Normalization of Multimodal Biometric Scores (2011)
 	# of L. Latha and S. Thangasamy
