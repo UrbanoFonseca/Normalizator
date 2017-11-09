@@ -1,7 +1,7 @@
 import pandas as pd
-from sklearn.base import TransformerMixin
+from sklearn.base import TransformerMixin, BaseEstimator
 
-class ColumnExtractor(TransformerMixin):
+class ColumnExtractor(BaseEstimator, TransformerMixin):
 	# To be applied with Pipeline
 	# Extracts the list of columns provided on __init__
     def __init__(self, columns):
@@ -17,7 +17,7 @@ class ColumnExtractor(TransformerMixin):
         return X[self.columns]
 
 
-class CategoricalEncoder(TransformerMixin):
+class CategoricalEncoder(BaseEstimator, TransformerMixin):
     # Applies the '1 to N-1' binarizer of categorical encoding.       
     def fit(self, X):
         return self
