@@ -18,7 +18,10 @@ class ColumnExtractor(BaseEstimator, TransformerMixin):
 
 
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
-    # Applies the '1 to N-1' binarizer of categorical encoding.       
+    # Applies the '1 to N-1' binarizer of categorical encoding.
+    def __init__(self):
+        pass	
+
     def fit(self, X):
         return self
     
