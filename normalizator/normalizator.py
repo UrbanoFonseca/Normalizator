@@ -22,7 +22,7 @@ class StandardScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] = (X_[:, i] - self.means[i])/self.stds[i]
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return self.X_
 
 	def fit_transform(self, X, y='deprecated'):
@@ -51,7 +51,7 @@ class MinMaxScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] = (X_[:, i] - self.min[i])  / (self.max[i] - self.min[i])
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X, y='deprecated'):
@@ -76,7 +76,7 @@ class DecimalScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] /= 10**self.n[i]
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X):
@@ -101,7 +101,7 @@ class MedianScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] = X_[:, i] / self.median[i]
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X, y='deprecated'):
@@ -127,7 +127,7 @@ class MMADScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] = (X_[:, i] - self.median[i]) / self.mad[i]
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X, y='deprecated'):
@@ -155,7 +155,7 @@ class MAXScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] /= self.max[i]
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X, y='deprecated'):
@@ -184,7 +184,7 @@ class modtanhScaler(BaseEstimator, TransformerMixin):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			X_[:, i] = np.arctanh(0.5 * (np.tanh(0.01*(X_[:, i] - self.mu[i])/self.sigma[i])+1))
-		self.X_ = X_
+		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
 	def fit_transform(self, X, y='deprecated'):
