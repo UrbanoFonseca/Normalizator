@@ -8,10 +8,10 @@ class StandardScaler(BaseEstimator, TransformerMixin):
 	# Z-SCORE NORMALIZATION
 	# For each feature vector, apply:
 	# v = [v - mean(v)] / std(v)
-	def __init__(self):
+	def __init__(self, means=[], means=[]):
 		# Save the function parameters
-		self.means = []
-		self.stds = []
+		self.means = means
+		self.stds = stds
 
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
@@ -19,6 +19,7 @@ class StandardScaler(BaseEstimator, TransformerMixin):
 			v = X_[:, i]
 			self.means.insert(i, np.mean(v))
 			self.stds.insert(i, np.std(v))
+		return self
 
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
@@ -38,21 +39,22 @@ class MinMaxScaler(BaseEstimator, TransformerMixin):
 	# MIN MAX NORMALIZATION
 	# For each feature vector, apply:
 	# v = [v - min(v)] / [max(v) - min(v)]
-	def __init__(self):
-		self.min = []
-		self.max = []
+	def __init__(self, minimal=[], maximum=[]):
+		self.minimal = minimal
+		self.maximum = maximum
 
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			v = X_[:, i]
-			self.min.insert(i, np.min(v))
-			self.max.insert(i, np.max(v))
+			self.minimal.insert(i, np.min(v))
+			self.maximum.insert(i, np.max(v))
+		return self
 
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
-			X_[:, i] = (X_[:, i] - self.min[i])  / (self.max[i] - self.min[i])
+			X_[:, i] = (X_[:, i] - self.minimal[i])  / (self.maximum[i] - self.minimal[i])
 		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
@@ -66,14 +68,15 @@ class DecimalScaler(BaseEstimator, TransformerMixin):
 	# DECIMAL SCALING
 	# Normalize each feature by dividing each feature sk by 10^n,
 	# where n = log10(max(si))
-	def __init__(self):
-		self.n = []
+	def __init__(self, n=[]):
+		self.n = n
 
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			self.n.insert(i, np.ceil(np.log10(np.max(X_[:, i]))))
-		
+		return self
+
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
@@ -91,13 +94,14 @@ class MedianScaler(BaseEstimator, TransformerMixin):
 	# As presented in the paper:
 	# Statistical Normalization and Backpropagation for Classification
 	# Jayalakshmi, T. and Santhakumaran, A.
-	def __init__(self):
-		self.median = []
+	def __init__(self, median=[]):
+		self.median = median
 
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			self.median.insert(i, np.median(X_[:, i]))
+		return self
 
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
@@ -115,16 +119,17 @@ class MedianScaler(BaseEstimator, TransformerMixin):
 class MMADScaler(BaseEstimator, TransformerMixin):
 	# Median and Median Absolute Deviation
 	# MAD = median(|sk - median|)
-	def __init__(self):
-		self.median = []
-		self.mad = []
+	def __init__(self, median=[], mad=[]):
+		self.median = median
+		self.mad = mad
         
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			self.median.insert(i, np.median(X_[:, i]))
 			self.mad.insert(i, np.median(np.abs(X_[:, i] - np.median(X_[:, i]))))
-		
+		return self
+
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
@@ -137,22 +142,21 @@ class MMADScaler(BaseEstimator, TransformerMixin):
 		self.transform(X)
 		return self.X_
 
-
-
     
 class MAXScaler(BaseEstimator, TransformerMixin):
 	# As presented in the paper:
     # Efficient approach to Normalization of Multimodal Biometric Scores (2011)
     # of L. Latha and S. Thangasamy
     # Min Max Normalization with min = 0.
-	def __init__(self):
-		self.max = []
+	def __init__(self, maximum=[]):
+		self.maximum = maximum
         
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			self.max.insert(i, np.max(X_[:, i]))
-		
+		return self
+
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
@@ -172,15 +176,16 @@ class modtanhScaler(BaseEstimator, TransformerMixin):
 	# of L. Latha and S. Thangasamy
 	# tanh s' = 0.5[tanh(0.01(s- mu)/sigma)+1]
 	# The np.arctanh is the inverse of the hyperbolic tangent.
-	def __init__(self):
-		self.mu = []
-		self.sigma = []
+	def __init__(self, mu=[], sigma=[]):
+		self.mu = mu
+		self.sigma = sigma
 
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
 			self.mu.insert(i, np.mean(X_[:, i]))
 			self.sigma.insert(i, np.std(X_[:, i]))
+		return self
 
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
