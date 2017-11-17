@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='normalizator',
-      version='0.1.2',
+      version='0.1.3',
       description='Scaling tools for Python',
       url='https://github.com/UrbanoFonseca/Normalizator',
       author='UrbanoFonseca',
