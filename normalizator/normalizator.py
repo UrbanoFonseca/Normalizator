@@ -8,7 +8,7 @@ class StandardScaler(BaseEstimator, TransformerMixin):
 	# Z-SCORE NORMALIZATION
 	# For each feature vector, apply:
 	# v = [v - mean(v)] / std(v)
-	def __init__(self, means=[], means=[]):
+	def __init__(self, means=[], stds=[]):
 		# Save the function parameters
 		self.means = means
 		self.stds = stds
