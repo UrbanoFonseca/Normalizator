@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.base import TransformerMixin, BaseEstimator
 
 class ColumnExtractor(BaseEstimator, TransformerMixin):
@@ -30,3 +31,19 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
 
     def fit_transform(self, X, y='deprecated'):
         return pd.get_dummies(X, columns=self.columns, drop_first=True)
+
+
+class ConstantEraser(BaseEstimator, TransformerMixin):
+    # Erases constant variables by calculating their variance and
+    # erasing if below a certain treshold (1E-20)
+    def __init__(self):
+        return
+
+    def fit(self, X):
+        return self
+
+    def transform(self, X, y='deprecated'):
+        return X[:, np.var(X, axis=0)>1E-20]
+
+    def fit_transform(self, X, y='deprecated'):
+        return X[:, np.var(X, axis=0)>1E-20]
