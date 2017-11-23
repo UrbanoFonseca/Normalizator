@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import copy
 from sklearn.base import TransformerMixin, BaseEstimator
 
 class ColumnExtractor(BaseEstimator, TransformerMixin):
