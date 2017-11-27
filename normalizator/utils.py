@@ -35,19 +35,21 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
 
 
 class ConstantEraser(BaseEstimator, TransformerMixin):
-    # Erases constant variables by calculating their variance and
-    # erasing if below a certain treshold (1E-20)
-    def __init__(self):
-        return
+	# Erases constant variables by calculating their variance and
+	# erasing if below a certain treshold (1E-20)
+	def __init__(self):
+		return
 
-    def fit(self, X):
-        return self
+	def fit(self, X):
+		return self
 
-    def transform(self, X, y='deprecated'):
-        return X[:, np.var(X, axis=0)>1E-20]
+	def transform(self, X, y='deprecated'):
+		self.X_ = copy.copy(X)[:, np.var(X, axis=0)>1E-20]
+		return self.X_
 
-    def fit_transform(self, X, y='deprecated'):
-        return X[:, np.var(X, axis=0)>1E-20]
+	def fit_transform(self, X, y='deprecated'):
+		self.transform(X)
+		return self.X_
 
 
 
