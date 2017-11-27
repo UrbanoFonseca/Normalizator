@@ -73,7 +73,7 @@ class LimitSetter(BaseEstimator, TransformerMixin):
 		id_rows = np.all((X_ >= self.minimum) & (X_ <= self.maximum), axis=1)
 		self.X_ = X_[id_rows]
 		if type(y)!=str:
-		y = copy.copy(y)[id_rows]
+			y = copy.copy(y)[id_rows]
 			return self.X_, y
 		else:
 			return self.X_
