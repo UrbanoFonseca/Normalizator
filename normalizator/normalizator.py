@@ -154,13 +154,13 @@ class MAXScaler(BaseEstimator, TransformerMixin):
 	def fit(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
-			self.max.insert(i, np.max(X_[:, i]))
+			self.maximum.insert(i, np.max(X_[:, i]))
 		return self
 
 	def transform(self, X):
 		X_ = copy.copy(np.asarray(X))
 		for i in np.arange(X.shape[1]):
-			X_[:, i] /= self.max[i]
+			X_[:, i] /= self.maximum[i]
 		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
