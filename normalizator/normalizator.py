@@ -84,7 +84,7 @@ class DecimalScaler(BaseEstimator, TransformerMixin):
 		self.X_ = pd.DataFrame(X_, columns=X.columns) if isinstance(X, pd.DataFrame) else X_
 		return X_
 
-	def fit_transform(self, X):
+	def fit_transform(self, X, y='deprecated'):
 		self.fit(X)
 		self.transform(X)
 		return self.X_
